@@ -148,7 +148,7 @@ describe("InsertLast", () => {
 	});
 });
 
-describe.skip("GetAt", () => {
+describe("GetAt", () => {
 	test("returns the node at given index", () => {
 		const l = new List();
 		expect(l.getAt(10)).toEqual(null);
@@ -162,11 +162,6 @@ describe.skip("GetAt", () => {
 		l.insertLast(3);
 		l.insertLast(4);
 
-		expect(l.getAt(0).data).toEqual(1);
-		expect(l.getAt(1).data).toEqual(2);
-		expect(l.getAt(2).data).toEqual(3);
-		expect(l.getAt(3).data).toEqual(4);
-	});
 		expect(l.getAt(0).data).toEqual(1);
 		expect(l.getAt(1).data).toEqual(2);
 		expect(l.getAt(2).data).toEqual(3);
@@ -307,11 +302,6 @@ describe.skip("ForEach", () => {
 		expect(l.getAt(2).data).toEqual(13);
 		expect(l.getAt(3).data).toEqual(14);
 	});
-		expect(l.getAt(0).data).toEqual(11);
-		expect(l.getAt(1).data).toEqual(12);
-		expect(l.getAt(2).data).toEqual(13);
-		expect(l.getAt(3).data).toEqual(14);
-	});
 });
 
 describe.skip("for...of loops", () => {
@@ -339,17 +329,12 @@ describe.skip("for...of loops", () => {
 		expect(l.getAt(2).data).toEqual(13);
 		expect(l.getAt(3).data).toEqual(14);
 	});
-		expect(l.getAt(0).data).toEqual(11);
-		expect(l.getAt(1).data).toEqual(12);
-		expect(l.getAt(2).data).toEqual(13);
-		expect(l.getAt(3).data).toEqual(14);
-	});
+});
 
-	test("for...of works on an empty list", () => {
-		const l = new List();
-		expect(() => {
-			for (let node of l) {
-			}
-		}).not.toThrow();
-	});
+test("for...of works on an empty list", () => {
+	const l = new List();
+	expect(() => {
+		for (let node of l) {
+		}
+	}).not.toThrow();
 });
