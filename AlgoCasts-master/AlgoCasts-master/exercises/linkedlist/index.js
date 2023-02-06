@@ -90,6 +90,10 @@ class LinkedList {
 		node.next = null;
 	}
 
+	clear() {
+		this.head = null;
+	}
+
 	insertLast(data) {
 		if (this.head === null) {
 			this.head = new Node(data);
@@ -114,7 +118,7 @@ class LinkedList {
 
 		var node = this.head;
 
-		while(currentNodeIndex < index){
+		while (currentNodeIndex < index) {
 			node = node.next;
 			currentNodeIndex++;
 		}
