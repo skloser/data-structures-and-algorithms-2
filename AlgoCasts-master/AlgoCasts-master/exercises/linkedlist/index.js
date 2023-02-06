@@ -15,31 +15,15 @@ class LinkedList {
 	}
 
 	insertFirst(data) {
-		if (this.head === null) {
-			this.head = new Node(data);
-		} else {
-			var node = new Node(data);
-			node.next = this.head;
-			this.head = node;
-		}
+		this.insertAt(data, 0);
 	}
 
 	getFirst() {
-		return this.head;
+		return this.getAt(0);
 	}
 
 	getLast() {
-		if (this.head === null) {
-			return null;
-		}
-
-		var node = this.head;
-
-		while (node.next) {
-			node = node.next;
-		}
-
-		return node;
+		return this.getAt(this.size() - 1);
 	}
 
 	size() {
@@ -59,16 +43,7 @@ class LinkedList {
 	}
 
 	removeFirst() {
-		if (this.head === null) {
-			return;
-		}
-
-		if (this.head.next === null) {
-			this.head = null;
-			return;
-		}
-
-		this.head = this.head.next;
+		this.removeAt(0);
 	}
 
 	removeLast() {
@@ -90,8 +65,63 @@ class LinkedList {
 		node.next = null;
 	}
 
+	forEach(fn) {
+		var node = this.head;
+
+		while (node) {
+			fn(node);
+			node = node.next;
+		}
+	}
+
+	*[Symbol.iterator]() {
+		let node = this.head;
+		while (node) {
+			yield node;
+			node = node.next;
+		}
+	}
+
+	removeAt(index) {
+		if (index === 0 && this.head !== null) {
+			this.head = this.head.next;
+		}
+
+		if (this.checkIfOutOfBoundIndex(index)) {
+			return null;
+		}
+
+		var previousNode = this.getAt(index - 1);
+		var nextNode = this.getAt(index + 1);
+
+		previousNode.next = nextNode;
+	}
+
 	clear() {
 		this.head = null;
+	}
+
+	insertAt(data, index) {
+		if (index === 0) {
+			this.head = new Node(data, this.head);
+			return;
+		}
+
+		if (this.checkIfOutOfBoundIndex(index)) {
+			var node = this.head;
+			while (node.next) {
+				node = node.next;
+			}
+
+			node.next = new Node(data);
+			return;
+		}
+
+		var previousNode = this.getAt(index - 1);
+		var shiftNode = this.getAt(index);
+
+		var insertNode = new Node(data, shiftNode);
+		previousNode.next = insertNode;
 	}
 
 	insertLast(data) {
@@ -109,8 +139,12 @@ class LinkedList {
 		node.next = new Node(data);
 	}
 
+	checkIfOutOfBoundIndex(index) {
+		return this.size() < index + 1;
+	}
+
 	getAt(index) {
-		if (this.size() < index + 1) {
+		if (this.checkIfOutOfBoundIndex(index)) {
 			return null;
 		}
 
