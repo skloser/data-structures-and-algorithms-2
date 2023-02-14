@@ -23,11 +23,50 @@ class Node {
 			return null;
 		}
 
-		var node = new Node(data);
-		var left = this.left;
-		var right = this.right;
+		var node = this;
+		var newNode = new Node(data);
 
-        
+		while (true) {
+			if (data < node.data) {
+				if (node.left === null) {
+					node.left = newNode;
+					return;
+				} else {
+					node = node.left;
+				}
+			}
+
+			if (data > node.data) {
+				if (node.right === null) {
+					node.right = newNode;
+					return;
+				} else {
+					node = node.right;
+				}
+			}
+		}
+	}
+
+	contains(data) {
+		var node = this;
+
+		while (data !== node.data) {
+			if (data < node.data) {
+				if (node.left === null) {
+					return null;
+				}
+				node = node.left;
+			}
+
+			if (data > node.data) {
+				if (node.right === null) {
+					return null;
+				}
+				node = node.right;
+			}
+		}
+
+		return node;
 	}
 }
 
